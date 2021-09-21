@@ -1,94 +1,106 @@
-import React from 'react';
-import { LineChart, Line, XAxis, YAxis, Bar, CartesianGrid, Tooltip, Legend } from 'recharts';
+import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import SwipeableViews from 'react-swipeable-views';
+import { useTheme } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import DownloadIcon from '@mui/icons-material/Download';
 
-function Dashboard() {
+import Chart from './chart';
 
-  const data = [
-    {
-      name: 'Page A',
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: 'Page B',
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: 'Page C',
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: 'Page D',
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: 'Page E',
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: 'Page F',
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: 'Page G',
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ];
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
   return (
-    <Container maxWidth="lg">
-      <Box mt={5}>
-        <Grid container >
-          <Grid item xs={12}>
-            <Paper>
-              <LineChart
-                width={500}
-                height={300}
-                data={data}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="pv"
-                  stroke="#8884d8"
-                  activeDot={{ r: 8 }}
-                />
-                <Bar dataKey="pv" barSize={20} fill="#413ea0" />
-                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-              </LineChart>
-            </Paper>
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ position: "relative", height: "100%", width: "100%" }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function Dashboard(props) {
+
+  const pathname = props.location.pathname;
+  const country = pathname.split("/")[1];
+  if (pathname.split("/").length > 2) {
+    var item = pathname.split("/")[2];
+  }
+
+  const theme = useTheme();
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+
+  const handleChangeIndex = (index) => {
+    setValue(index);
+  };
+  
+
+  return (
+    <Box mt={2} mx={1.5}>
+      <Typography variant="h5" style={{ textAlign: "center" }}>
+        { country.toUpperCase() }{ item ? `: ${item.toUpperCase()}` : ''}
+      </Typography>
+      <Tabs value={value} onChange={handleChange} centered>
+        <Tab label="Overview" />
+        <Tab label="Monthly" />
+        <Tab label="Yearly" />
+      </Tabs>
+      <SwipeableViews
+        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        index={value}
+        onChangeIndex={handleChangeIndex}
+      >
+        <TabPanel value={value} index={0} dir={theme.direction} sx={{ height: "80%" }}>
+          <Grid container spacing={2}> 
+            <Grid item xs={12} >
+              <Chart name="All Oil Imports" type="Pie" />
+            </Grid>
+            <Grid item xs={12} style={{ textAlign: "center" }}>
+              <Button variant="contained" endIcon={<DownloadIcon />} component="a" href="#">
+                Download .csv file
+              </Button>
+            </Grid>
           </Grid>
-        </Grid>
-      </Box>
-    </Container>
-    
+        </TabPanel>
+        <TabPanel value={value} index={1} dir={theme.direction}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Chart name="Import" type="Bar"  />
+            </Grid>
+            <Grid item xs={12}>
+              <Chart name="Export" type="Bar"  />
+            </Grid>
+          </Grid>
+        </TabPanel>
+        <TabPanel value={value} index={2} dir={theme.direction}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6}>
+              <Chart name="Import" type="Bar" />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Chart name="Export" type="Bar" />
+            </Grid>
+          </Grid>
+        </TabPanel>
+      </SwipeableViews>
+    </Box>
   )
 }
 
