@@ -3,7 +3,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
@@ -18,10 +17,21 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 
-import ThailandFlag from '../assets/images/thailandFlag.svg';
-import ChinaFlag from '../assets/images/chinaFlag.svg';
+import './header.styles.scss';
+import ThailandFlag from '../../assets/images/thailandFlag.svg';
+import ChinaFlag from '../../assets/images/chinaFlag.svg';
+import { thailandHeader, chinaHeader } from './headerData';
+
 
 export default function Header() {
+
+  const pathname = window.location.pathname;
+  // const path = pathname === '/' ? 'home' : pathname.substr(1);
+  // const country = pathname.split("/")[1];
+  // var item = null;
+  // if (pathname.split("/").length > 2) {
+  //   var item = pathname.split("/")[2];
+  // }
 
   const [openTH, setOpenTH] = useState(true);
   const [openCH, setOpenCH] = useState(true);
@@ -67,8 +77,8 @@ export default function Header() {
       <Divider />
       <List>
         {/* Thailand */}
-        <ListItem button onClick={handleClick}>
-          <ListItemIcon>
+        <ListItem button onClick={handleClick} >
+          <ListItemIcon >
             <Icon classes={{root: useStyles.iconRoot}}>
               <img className={useStyles.imageIcon} src={ThailandFlag} alt="TH" />
             </Icon>
@@ -78,16 +88,16 @@ export default function Header() {
         </ListItem>
         {/* Thailand List */}
         <Collapse in={openTH} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button sx={{ pl: 4 }} component="a" href="/thailand/import">
-              <ListItemText primary="Import" />
-            </ListItem>
-            <ListItem button sx={{ pl: 4 }} component="a" href="/thailand/export">
-              <ListItemText primary="Export" />
-            </ListItem>
-            <ListItem button sx={{ pl: 4 }} component="a" href="/thailand/oil">
-              <ListItemText primary="Oil" />
-            </ListItem>
+          <List component="div" disablePadding >
+            {
+              thailandHeader.map(({ item, href }) => (
+                  <List component="div" disablePadding className={"" + ( pathname === href ? "current" : "") }>
+                    <ListItem button sx={{ pl: 4 }} component="a" href={href} >
+                      <ListItemText primary={item} />
+                    </ListItem>
+                  </List>
+              ))
+            }
           </List>
         </Collapse>
 
@@ -103,15 +113,15 @@ export default function Header() {
         </ListItem>
         <Collapse in={openCH} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button sx={{ pl: 4 }} component="a" href="/china/import">
-                <ListItemText primary="Import" />
-              </ListItem>
-              <ListItem button sx={{ pl: 4 }} component="a" href="/china/export">
-                <ListItemText primary="Export" />
-              </ListItem>
-              <ListItem button sx={{ pl: 4 }} component="a" href="/china/petroleum">
-                <ListItemText primary="Petroleum" />
-              </ListItem>
+              {
+                chinaHeader.map(({ item, href }) => (
+                    <List component="div" disablePadding className={"" + ( pathname === href ? "current" : "") }>
+                      <ListItem button sx={{ pl: 4 }} component="a" href={href} >
+                        <ListItemText primary={item} />
+                      </ListItem>
+                    </List>
+                ))
+              }
             </List>
           </Collapse>
       </List>
@@ -129,20 +139,21 @@ export default function Header() {
               color="inherit"
               aria-label="menu"
               sx={{ mr: 2 }}
+              onClick={toggleDrawer('left', true)}
             >
-              <MenuIcon onClick={toggleDrawer('left', true)} />
-              <SwipeableDrawer
-                anchor={'left'}
-                open={state['left']}
-                onClose={toggleDrawer('left', false)}
-              >
-                { list('left') }
-              </SwipeableDrawer>
+              <MenuIcon />
             </IconButton>
+            <SwipeableDrawer
+              anchor={'left'}
+              open={state['left']}
+              onClose={toggleDrawer('left', false)}
+            >
+              { list('left') }
+            </SwipeableDrawer>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Aramco
             </Typography>
-            <Button color="inherit">Login</Button>
+            
           </Toolbar>
         </AppBar>
       </Box>
