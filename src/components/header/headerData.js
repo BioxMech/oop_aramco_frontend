@@ -27,11 +27,7 @@ export const chinaHeader = [
   //   href: "/china/overview",
   // },
   {
-    item: "Gasoline",
-    href: "/china/gasoline",
-  },
-  {
-    item: "Aviation Kerosene",
-    href: "/china/net",
+    item: "Import / Export",
+    href: "/china/importExport",
   }
 ];

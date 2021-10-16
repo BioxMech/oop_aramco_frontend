@@ -1,38 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { Bar } from 'react-chartjs-2';
 
-function BarChart({ name }) {
+function BarChart(props) {
+
+  const [data, setData] = useState(null);
 
   const rand = () => Math.round(Math.random() * 20 - 10);
 
-  // it will be taken from the db
-  const data = {
+  const dataTemp = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'September', 'October', 'November', 'December'],
     datasets: [
       {
         type: 'line',
-        label: 'Dataset 1',
+        label: props.lineOneName,
         borderColor: 'rgb(54, 162, 235)',
         borderWidth: 2,
         fill: false,
-        data: [rand(), rand(), rand(), rand(), rand(), rand(), rand(), rand(), rand(), rand(), rand()],
+        data: props.lineOneData,
+        // id: 'A'
       },
       {
         type: 'line',
-        label: 'Dataset 3',
+        label: props.lineTwoName,
         borderColor: 'green',
         borderWidth: 2,
         fill: false,
-        data: [rand(), rand(), rand(), rand(), rand(), rand(), rand(), rand(), rand(), rand(), rand()],
+        data: props.lineTwoData,
+        // id: 'A'
       },
       {
         type: 'bar',
-        label: 'Dataset 2',
+        label: props.barName,
         backgroundColor: 'rgb(255, 99, 132)',
-        data: [rand(), rand(), rand(), rand(), rand(), rand(), rand(), rand(), rand(), rand(), rand()],
+        data: props.barData,
         borderColor: 'white',
         borderWidth: 2,
+        // id: 'B'
       }
     ],
   };
@@ -45,14 +49,25 @@ function BarChart({ name }) {
       // },
       title: {
         display: true,
-        text: name,
+        text: props.name,
       },
     },
+    // scales: {
+    //   yAxes: [{
+    //     id: 'A',
+    //     type: 'linear',
+    //     position: 'left',
+    //   }, {
+    //     id: 'B',
+    //     type: 'linear',
+    //     position: 'right',
+    //   }]
+    // }
   };
 
   return (
     <Box sx={{ minWidth: "350px", width: "72vw", height: "100%", margin: "auto" }}>
-      <Bar data ={data} options={options} />
+      <Bar data ={dataTemp} options={options} />
     </Box>
   )
 }
