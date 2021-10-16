@@ -14,8 +14,8 @@ function BarChart(props) {
       {
         type: 'line',
         label: props.lineOneName,
-        borderColor: 'rgb(54, 162, 235)',
-        borderWidth: 2,
+        borderColor: 'rgb(201, 93, 20)',
+        borderWidth: 2.5,
         fill: false,
         data: props.lineOneData,
         // id: 'A'
@@ -23,8 +23,8 @@ function BarChart(props) {
       {
         type: 'line',
         label: props.lineTwoName,
-        borderColor: 'green',
-        borderWidth: 2,
+        borderColor: 'rgb(54, 162, 235)',
+        borderWidth: 2.5,
         fill: false,
         data: props.lineTwoData,
         // id: 'A'
@@ -32,7 +32,7 @@ function BarChart(props) {
       {
         type: 'bar',
         label: props.barName,
-        backgroundColor: 'rgb(255, 99, 132)',
+        backgroundColor: props.barColors,
         data: props.barData,
         borderColor: 'white',
         borderWidth: 2,

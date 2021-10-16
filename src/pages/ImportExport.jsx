@@ -32,6 +32,7 @@ function ImportExport(props) {
   const [exportVals, setExportVals] = useState([]);
   const [importVals, setImportVals] = useState([]);
   const [netVals, setNetVals] = useState([]);
+  const [barColors, setBarColors] = useState([]);
 
   const handleCommodity = (event) => {
     setCommodity(event.target.value);
@@ -78,9 +79,13 @@ function ImportExport(props) {
         let netData = importData.map((imp, idx) => {
           return imp - exportData[idx];
         })
+        let netColors = netData.map((net, idx) => {
+          return net < 0 ? "rgb(255, 99, 132)" : "rgb(0, 154, 123)";
+        })
         setExportVals(exportData);
         setImportVals(importData);
         setNetVals(netData);
+        setBarColors(netColors);
       })
   }, [commodity, year])
 
@@ -158,6 +163,7 @@ function ImportExport(props) {
               lineOneData={exportVals}
               lineTwoData={importVals}
               barData = {netVals}
+              barColors = {barColors}
             />
           </Grid>
         </Grid>
