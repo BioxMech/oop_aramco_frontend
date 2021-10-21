@@ -10,7 +10,7 @@ import Typewriter from 'typewriter-effect';
 
 import ThailandFlag from '../assets/images/thailandFlag.svg';
 import ChinaFlag from '../assets/images/chinaFlag.svg';
-import Overview from '../assets/images/overview.svg';
+import Overview from '../assets/images/overview.png';
 
 function Home() {
 
@@ -76,10 +76,8 @@ function Home() {
             >
               Thailand
             </Button>
-            <Button color="inherit" variant="contained" startIcon={
-              <Icon classes={{root: useStyles.iconRoot}}>
-                <img className={useStyles.imageIcon} src={Overview} alt="Overview" />
-              </Icon>
+            <Button color="inherit" variant="contained" startIcon={ 
+              <img style={{ width: "20px"}} src={Overview} alt="Overview" />
               }
               component="a"
               href="/overview"
