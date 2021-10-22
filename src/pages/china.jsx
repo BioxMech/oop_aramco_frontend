@@ -62,6 +62,7 @@ function China(props) {
   },[])
 
   useEffect(() => {
+    setLoading(true)
     setChartTitle(` Net Imports of ${commodity} in ${year}`)
     axios.get(`${state.api}/china/${year}/${commodity}`)
       .then(res => {
@@ -87,6 +88,7 @@ function China(props) {
         setImportVals(importData);
         setNetVals(netData);
         setBarColors(netColors);
+        setLoading(false)
       })
   }, [commodity, year])
 
