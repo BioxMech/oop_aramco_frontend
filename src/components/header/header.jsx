@@ -71,9 +71,11 @@ export default function Header() {
       sx={{ width: 250 }}
       role="presentation"
     >
-      <Toolbar>
-        <img style={{width:"100%"}} src="https://www.aramco.com/images/affiliateLogo.png" alt="Aramco" />
-      </Toolbar>
+      <Box my={1}>
+        <Toolbar component="a" href="/">
+          <img style={{width:"100%"}} src="https://www.aramco.com/images/affiliateLogo.png" alt="Aramco"  />
+        </Toolbar>
+      </Box>
       <Divider />
       <List>
         {/* Thailand */}
