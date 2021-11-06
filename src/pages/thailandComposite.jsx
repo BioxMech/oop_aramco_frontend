@@ -59,7 +59,6 @@ function ThailandComposite(props) {
     setLoading(true)
     axios.get(`${state.api}/thailand/${year}/${commodity}`)
       .then(res => {
-
         let importData = Array(12).fill(0);
         let exportData = Array(12).fill(0);
         let productionData = Array(12).fill(0);
