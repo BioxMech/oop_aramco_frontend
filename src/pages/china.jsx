@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 import DownloadIcon from '@mui/icons-material/Download';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -163,6 +164,8 @@ function China(props) {
               <Grid container spacing={2}> 
               <Grid item xs={12} >
                 <Chart name="Oil Import" type="Pie" data={commodityList.slice(1)} year={year} dataValues={importPieValues} />
+                <br />
+                <Divider />
                 <br />
                 <Chart name="Oil Export" type="Pie" data={commodityList.slice(1)} year={year} dataValues={exportPieValues} /> 
               </Grid>

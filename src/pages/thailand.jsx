@@ -69,7 +69,7 @@ function Thailand() {
           resData.splice(index, 1, parseFloat(entry.quantity));
       });
       setChartData(resData);
-      setLoading(false)
+      setLoading(false);
     })
   }, [commodity, year])
 

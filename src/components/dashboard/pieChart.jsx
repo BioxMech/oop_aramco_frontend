@@ -84,7 +84,7 @@ function PieChart({ name, data, year, dataValues }) {
   };
 
   return (
-    <Box sx={{ minWidth: "350px", width: "40vw", margin: "auto" }}>
+    <Box sx={{ minWidth: "350px", width: "36vw", margin: "auto" }}>
       <Pie data={dataPoints} options={options} key={name} />
     </Box>
   )

@@ -54,7 +54,6 @@ function Home() {
           
         </Box>
         <Box >
-          
           <Stack direction="row" spacing={2}>
             <Button color="error" variant="contained" startIcon={
               <Icon classes={{root: useStyles.iconRoot}}>
@@ -62,7 +61,7 @@ function Home() {
               </Icon>
               }
               component="a"
-              href="/china/importExport"
+              href="/china"
             >
               China
             </Button>
@@ -72,7 +71,7 @@ function Home() {
               </Icon>
               }
               component="a"
-              href="/thailand/import"
+              href="/thailand"
             >
               Thailand
             </Button>

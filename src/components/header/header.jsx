@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import MenuIcon from '@mui/icons-material/Menu';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
@@ -21,6 +22,7 @@ import './header.styles.scss';
 import ThailandFlag from '../../assets/images/thailandFlag.svg';
 import ChinaFlag from '../../assets/images/chinaFlag.svg';
 import { thailandHeader, chinaHeader } from './headerData';
+import AramcoLogo from '../../assets/images/aramco-logo.png';
 
 
 export default function Header() {
@@ -152,10 +154,17 @@ export default function Header() {
             >
               { list('left') }
             </SwipeableDrawer>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Aramco
-            </Typography>
-            
+            <Box mx={"auto"}>
+              <Button component="a" href="/" style={{ backgroundColor: 'transparent', color: 'black' }}>
+                <img style={{width:"80%"}} src="https://www.aramco.com/images/affiliateLogo.png" alt="Aramco"  />
+                {/* <Box mr={1} mt={1}>
+                  <img src={AramcoLogo} alt="A" style={{ width: "24px" }} />
+                </Box>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  Aramco
+                </Typography> */}
+              </Button>
+            </Box>
           </Toolbar>
         </AppBar>
       </Box>
