@@ -47,6 +47,8 @@ function China(props) {
     });
     axios.get(`${state.api}/china/years`)
     .then(res => {
+      res.data.sort();
+      res.data.reverse();
       setYearList(res.data);
     }, (error) => {
       console.log(error);
