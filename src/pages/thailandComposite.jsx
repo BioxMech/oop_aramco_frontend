@@ -40,6 +40,7 @@ function ThailandComposite(props) {
   useEffect(() => {
     axios.get(`${state.api}/thailand/commodities`)
     .then(res => {
+      res.data.sort();
       setCommodityList(res.data);
     }, (error) => {
       console.log(error);
