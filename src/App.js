@@ -6,6 +6,7 @@ import China from './pages/china';
 import Thailand from './pages/thailand';
 import Overview from './pages/overview';
 import ThailandComposite from './pages/thailandComposite';
+import ThailandMaterial from './pages/thailandMaterial';
 import Store from './components/store/Store';
 
 class App extends React.Component {
@@ -17,6 +18,7 @@ class App extends React.Component {
         <Header />
         <Switch>
           <Route path="/thailand_composite" component={ThailandComposite} />
+          <Route path="/thailand_material" component={ThailandMaterial} />
           <Route path="/thailand/:type" component={Thailand} />
           <Route path="/china" component={China} />
           <Route path="/overview" component={Overview} />

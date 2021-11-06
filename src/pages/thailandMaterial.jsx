@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import DownloadIcon from '@mui/icons-material/Download';
 import InputLabel from '@mui/material/InputLabel';
@@ -9,40 +10,36 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import Select from '@mui/material/Select';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import LineChart from '../components/dashboard/lineChart';
-import { useParams } from 'react-router-dom';
-
+import axios from 'axios';
 import { Context } from '../components/store/Store';
+import LineChart from '../components/dashboard/lineChart';
+
 import Loading from '../components/loading/loading.component';
 
-function Thailand() {
+function ThailandMaterial(props) {
 
-  const [loading, setLoading] = useState(true);
   const [state, dispatch] = useContext(Context);
-  const [year, setYear] = useState("2021");
-  const [commodity, setCommodity] = useState("All");
-  const [commodityList, setCommodityList] = useState(["All"]);
+  const [year, setYear] = useState("2020");
+  const [refinery, setRefinery] = useState("");
+  const [refineryList, setRefineryList] = useState([]);
   const [yearList, setYearList] = useState([]);
   const [chartData, setChartData] = useState([]);
-  const { type } = useParams()
+  const [loading, setLoading] = useState(true);
 
-  const handleCommodity = (event) => {
-    setCommodity(event.target.value);
+  const handleRefinery = (event) => {
+    setRefinery(event.target.value);
   };
-  
+
   const handleYear = (event) => {
     setYear(event.target.value);
   };
-
+  
   useEffect(() => {
-    axios.get(`${state.api}/thailand/commodities`)
+    axios.get(`${state.api}/thailand/refineries`)
     .then(res => {
-      let newList = res.data;
-      newList.sort();
-      setCommodityList(newList);
-      setCommodity(newList[0]);
+      res.data.sort();
+      setRefineryList(res.data);
+      setRefinery(res.data[0]);
     }, (error) => {
       console.log(error);
     });
@@ -59,17 +56,17 @@ function Thailand() {
 
   useEffect(() => {
     setLoading(true)
-    axios.get(`${state.api}/thailand/${year}/${type}/${commodity}`)
-    .then(res => {
-      let resData = Array(12).fill(0);
+    axios.get(`${state.api}/thailand/${year}/Material Intake/${refinery}`)
+      .then(res => {
+        let resData = Array(12).fill(0);
       res.data.forEach(entry => {
           let index = parseInt(entry.month) - 1;
-          resData.splice(index, 1, resData[index] + parseFloat(entry.quantity));
+          resData.splice(index, 1, parseFloat(entry.quantity));
       });
       setChartData(resData);
-      setLoading(false)
-    })
-  }, [commodity, year])
+        setLoading(false);
+      })
+  }, [refinery, year])
 
   return (
     <>
@@ -79,28 +76,28 @@ function Thailand() {
         :
         <Box my={3} mx={1.5}>
           <Typography variant="h5" style={{ textAlign: "center" }}>
-          THAILAND: { type.toUpperCase() }
+          THAILAND SUMMARY
           </Typography>
 
           {/* ================ Filter ================ */}
           <Box my={3}>
             <Stack direction="row" spacing={2} style={{ display: 'flex', justifyContent: "center" }}>
               <FormControl >
-                <InputLabel id="demo-simple-select-label">Commodity</InputLabel>
+                <InputLabel id="demo-simple-select-label">Refinery</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={commodity}
-                  label="Commodity"
-                  onChange={handleCommodity}
+                  value={refinery}
+                  label="Refinery"
+                  onChange={handleRefinery}
                 >
                   {
-                    commodityList.map((commodity) => (
-                      <MenuItem value={commodity}>{commodity}</MenuItem>
+                    refineryList.map((refinery) => (
+                      <MenuItem value={refinery}>{refinery}</MenuItem>
                     ))
                   }
                 </Select>
-                <FormHelperText>Choice of Commodity</FormHelperText>
+                <FormHelperText>Choice of Refinery</FormHelperText>
               </FormControl>
               <FormControl >
                 <InputLabel id="demo-simple-select-label">Year</InputLabel>
@@ -122,40 +119,22 @@ function Thailand() {
             </Stack>
           </Box>
           
-          
           {/* ================ CHARTS ================ */}
-
-          {
-            commodity === "All" ? 
-            (
-              <Grid container spacing={2}> 
-              <Grid item xs={12} >
-               {/* For Jason to add */}
-              </Grid>
-              <Grid item xs={12} style={{ textAlign: "center" }}>
-                <Button variant="contained" endIcon={<DownloadIcon />} component="a" href="https://bit.ly/3j0ldt6">
-                  Download .csv file
-                </Button>
-              </Grid>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <LineChart
+                key="1"
+                name={`Material Intake of ${refinery} in ${year}`}
+                lineName="Refinery Material Intake"
+                data={chartData}
+                color={'rgb(255, 99, 132)'}
+              />
             </Grid>
-            ) : (
-              <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <LineChart
-                  key="1"
-                  name={`${type} of ${commodity} in ${year}`}
-                  lineName={type}
-                  data={chartData}
-                  color={'rgb(255, 99, 132)'}
-                />
-              </Grid>
-            </Grid>
-            ) 
-          }
+          </Grid>
         </Box>
       }
     </>
   )
 }
 
-export default Thailand;
+export default ThailandMaterial;

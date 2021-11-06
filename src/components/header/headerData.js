@@ -17,7 +17,7 @@ export const thailandHeader = [
   },
   {
     item: "Refinery Material Intake",
-    href: "/thailand/material intake",
+    href: "/thailand_material",
   },
   {
     item: "Sales",
