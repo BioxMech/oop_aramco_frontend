@@ -2,11 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { Bar } from 'react-chartjs-2';
 
-function BarChart(props) {
-
-  const [data, setData] = useState(null);
-
-  const rand = () => Math.round(Math.random() * 20 - 10);
+function CompositeChart(props) {
 
   const dataTemp = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'September', 'October', 'November', 'December'],
@@ -14,11 +10,10 @@ function BarChart(props) {
       {
         type: 'line',
         label: props.lineOneName,
-        borderColor: 'rgb(201, 93, 20)',
+        borderColor: 'rgb(255, 159, 64)',
         borderWidth: 2.5,
         fill: false,
-        data: props.lineOneData,
-        // id: 'A'
+        data: props.lineOneData
       },
       {
         type: 'line',
@@ -26,8 +21,7 @@ function BarChart(props) {
         borderColor: 'rgb(54, 162, 235)',
         borderWidth: 2.5,
         fill: false,
-        data: props.lineTwoData,
-        // id: 'A'
+        data: props.lineTwoData
       },
       {
         type: 'bar',
@@ -35,8 +29,7 @@ function BarChart(props) {
         backgroundColor: props.barColors,
         data: props.barData,
         borderColor: 'white',
-        borderWidth: 2,
-        // id: 'B'
+        borderWidth: 2
       }
     ],
   };
@@ -44,25 +37,11 @@ function BarChart(props) {
   const options = {
     responsive: true,
     plugins: {
-      // legend: {
-      //   position: 'right',
-      // },
       title: {
         display: true,
         text: props.name,
       },
-    },
-    // scales: {
-    //   yAxes: [{
-    //     id: 'A',
-    //     type: 'linear',
-    //     position: 'left',
-    //   }, {
-    //     id: 'B',
-    //     type: 'linear',
-    //     position: 'right',
-    //   }]
-    // }
+    }
   };
 
   return (
@@ -72,4 +51,4 @@ function BarChart(props) {
   )
 }
 
-export default BarChart;
+export default CompositeChart;

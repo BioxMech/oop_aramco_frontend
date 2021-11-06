@@ -8,16 +8,24 @@ export const thailandHeader = [
     href: "/thailand/production",
   },
   {
-    item: "Net Imports",
-    href: "/thailand/net-imports",
+    item: "Imports",
+    href: "/thailand/import",
+  },
+  {
+    item: "Exports",
+    href: "/thailand/export",
   },
   {
     item: "Refinery Material Intake",
-    href: "/thailand/refinery-material-intake",
+    href: "/thailand/material intake",
   },
   {
-    item: "Consumption",
-    href: "/thailand/consumption"
+    item: "Sales",
+    href: "/thailand/sales"
+  },
+  {
+    item: "Summary",
+    href: "/thailand_composite"
   }
 ];
 

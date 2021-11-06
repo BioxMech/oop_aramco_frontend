@@ -13,28 +13,20 @@ import Select from '@mui/material/Select';
 import Chart from '../components/dashboard/chart';
 import axios from 'axios';
 import { Context } from '../components/store/Store';
-import BarChart from '../components/dashboard/barChart';
+import LineChart from '../components/dashboard/lineChart';
 
 import Loading from '../components/loading/loading.component';
 
 function China(props) {
-
-  // const pathname = props.location.pathname;
-  // const country = pathname.split("/")[1];
-  // if (pathname.split("/").length > 2) {
-  //   var item = pathname.split("/")[2];
-  // }
 
   const [state, dispatch] = useContext(Context);
   const [year, setYear] = useState("2021");
   const [commodity, setCommodity] = useState("All");
   const [commodityList, setCommodityList] = useState(["All"]);
   const [yearList, setYearList] = useState([]);
-  const [chartTitle, setChartTitle] = useState("");
   const [exportVals, setExportVals] = useState([]);
   const [importVals, setImportVals] = useState([]);
   const [netVals, setNetVals] = useState([]);
-  const [barColors, setBarColors] = useState([]);
 
   const handleCommodity = (event) => {
     setCommodity(event.target.value);
@@ -54,7 +46,6 @@ function China(props) {
     });
     axios.get(`${state.api}/china/years`)
     .then(res => {
-      // console.log(res.data);
       setYearList(res.data);
     }, (error) => {
       console.log(error);
@@ -63,7 +54,6 @@ function China(props) {
 
   useEffect(() => {
     setLoading(true)
-    setChartTitle(` Net Imports of ${commodity} in ${year}`)
     axios.get(`${state.api}/china/${year}/${commodity}`)
       .then(res => {
         // console.log("Chart data", res.data);
@@ -72,22 +62,18 @@ function China(props) {
         res.data.forEach(entry => {
           if (entry.type === "export") {
             let index = parseInt(entry.month) - 1;
-            exportData.splice(index, 1, parseInt(entry.quantity));
+            exportData.splice(index, 1, parseFloat(entry.quantity));
           } else if (entry.type === "import") {
             let index = parseInt(entry.month) - 1;
-            importData.splice(index, 1, parseInt(entry.quantity));
+            importData.splice(index, 1, parseFloat(entry.quantity));
           }
         });
         let netData = importData.map((imp, idx) => {
           return imp - exportData[idx];
         })
-        let netColors = netData.map((net, idx) => {
-          return net < 0 ? "rgb(255, 99, 132)" : "rgb(0, 154, 123)";
-        })
         setExportVals(exportData);
         setImportVals(importData);
         setNetVals(netData);
-        setBarColors(netColors);
         setLoading(false)
       })
   }, [commodity, year])
@@ -105,15 +91,11 @@ function China(props) {
         let impactArr = []
         let exportArr = []
         for( let i  = 1; i < commodityList.length; i++) {
-          // console.log("commodity", commodityList[i])
           let exportData = res.data.filter(com => com.commodity === commodityList[i] && com.type === "export" && com.year === year)
           let importData = res.data.filter(com => com.commodity === commodityList[i] && com.type === "import" && com.year === year)
           impactArr = impactArr.concat([importData.map(com => com.quantity).reduce((prev, curr) => parseInt(prev) + ( curr === null ? 0 : parseInt(curr)), 0)])
           exportArr = exportArr.concat([exportData.map(com => com.quantity).reduce((prev, curr) => parseInt(prev) + ( curr === null ? 0 : parseInt(curr)), 0)])
         }
-        // console.log("importPieValues", importPieValues)
-        // console.log("impactArr", impactArr)
-        // console.log("exportArr", exportArr)
         setImportPieValues(impactArr)
         setExportPieValues(exportArr)
         setLoading(false)
@@ -130,7 +112,6 @@ function China(props) {
         <Box my={3} mx={1.5}>
           <Typography variant="h5" style={{ textAlign: "center" }}>
           CHINA: IMPORT / EXPORT
-            {/* { country.toUpperCase() }{ item ? ` : ${item.toUpperCase()}` : ''} */}
           </Typography>
 
           {/* ================ Filter ================ */}
@@ -194,16 +175,30 @@ function China(props) {
             ) : (
               <Grid container spacing={2}>
               <Grid item xs={12}>
-                <BarChart
-                  key={chartTitle}
-                  name={chartTitle}
-                  lineOneName="Exports"
-                  lineTwoName="Imports"
-                  barName="Net Imports"
-                  lineOneData={exportVals}
-                  lineTwoData={importVals}
-                  barData = {netVals}
-                  barColors = {barColors}
+                <LineChart
+                  key="1"
+                  name={`Exports of ${commodity} in ${year}`}
+                  lineName="Exports"
+                  data={exportVals}
+                  color={'rgb(255, 99, 132)'}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <LineChart
+                  key="2"
+                  name={`Imports of ${commodity} in ${year}`}
+                  lineName="Imports"
+                  data={importVals}
+                  color={'rgb(75, 192, 192)'}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <LineChart
+                  key="3"
+                  name={`Net Imports of ${commodity} in ${year}`}
+                  lineName="Net Imports"
+                  data={netVals}
+                  color={'rgb(153, 102, 255)'}
                 />
               </Grid>
             </Grid>

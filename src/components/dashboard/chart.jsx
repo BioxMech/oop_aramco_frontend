@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BarChart from './barChart';
+import BarChart from './lineChart';
 import PieChart from './pieChart';
 
 function Chart({ name, type, data, year, dataValues }) {
