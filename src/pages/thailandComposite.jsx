@@ -40,7 +40,9 @@ function ThailandComposite(props) {
   useEffect(() => {
     axios.get(`${state.api}/thailand/commodities`)
     .then(res => {
+      res.data.sort();
       setCommodityList(res.data);
+      setCommodity(res.data[0]);
     }, (error) => {
       console.log(error);
     });
@@ -66,16 +68,16 @@ function ThailandComposite(props) {
         res.data.forEach(entry => {
           if (entry.type === "export") {
             let index = parseInt(entry.month) - 1;
-            exportData.splice(index, 1, parseFloat(entry.quantity));
+            exportData.splice(index, 1, exportData[index] + parseFloat(entry.quantity));
           } else if (entry.type === "import") {
             let index = parseInt(entry.month) - 1;
-            importData.splice(index, 1, parseFloat(entry.quantity));
+            importData.splice(index, 1, importData[index] + parseFloat(entry.quantity));
           } else if (entry.type === "production") {
             let index = parseInt(entry.month) - 1;
-            productionData.splice(index, 1, parseFloat(entry.quantity));
+            productionData.splice(index, 1, productionData[index] + parseFloat(entry.quantity));
           } else if (entry.type === "sales") {
             let index = parseInt(entry.month) - 1;
-            salesData.splice(index, 1, parseFloat(entry.quantity));
+            salesData.splice(index, 1, salesData[index] + parseFloat(entry.quantity));
           }
         });
 
