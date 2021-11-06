@@ -40,9 +40,8 @@ function Thailand() {
   useEffect(() => {
     axios.get(`${state.api}/thailand/commodities`)
     .then(res => {
-      let newList = [];
-      newList = newList.concat(res.data);
-      newList.push("All");
+      let newList = res.data;
+      newList.sort();
       setCommodityList(newList);
       setCommodity(newList[0]);
     }, (error) => {
