@@ -12,6 +12,7 @@ import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import LineChart from '../components/dashboard/lineChart';
+import RegionChart from '../components/dashboard/regionChart';
 import { useParams } from 'react-router-dom';
 
 import { Context } from '../components/store/Store';
@@ -26,6 +27,8 @@ function Thailand() {
   const [commodityList, setCommodityList] = useState(["All"]);
   const [yearList, setYearList] = useState([]);
   const [chartData, setChartData] = useState([]);
+  const [isRegion, setIsRegion] = useState(false);
+  const [regionData, setRegionData] = useState({});
   const { type } = useParams()
 
   const handleCommodity = (event) => {
@@ -58,17 +61,67 @@ function Thailand() {
   },[])
 
   useEffect(() => {
-    setLoading(true)
-    axios.get(`${state.api}/thailand/${year}/${type}/${commodity}`)
-    .then(res => {
-      let resData = Array(12).fill(0);
-      res.data.forEach(entry => {
+    setLoading(true);
+    if (type == 'production' && (commodity == 'Crude Oil' || commodity == 'Condensate')) {
+      axios.get(`${state.api}/thailand/${year}/${type}/${commodity}`)
+      .then(res => {
+        let resData = Array(12).fill(0);
+        let regData = {};
+        res.data.forEach(entry => {
           let index = parseInt(entry.month) - 1;
-          resData.splice(index, 1, resData[index] + parseFloat(entry.quantity));
+          if (entry.region == "Total") {
+            if (resData[entry.region] === undefined) {
+              resData[entry.region] = Array(12).fill(0);
+            }
+            resData.splice(index, 1, parseFloat(entry.quantity));
+          } else {
+            if (regData[entry.region] === undefined) {
+              regData[entry.region] = Array(12).fill(0);
+            }
+            regData[entry.region].splice(index, 1, parseFloat(entry.quantity));
+          }
+        });
+        setRegionData(regData);
+        setChartData(resData);
       });
-      setChartData(resData);
-      setLoading(false)
-    })
+      setIsRegion(true);
+    } else if (type == 'import' && commodity == 'Crude Oil') {
+      axios.get(`${state.api}/thailand/${year}/${type}/${commodity}`)
+      .then(res => {
+        console.log(res)
+        let resData = Array(12).fill(0);
+        let regData = {};
+        res.data.forEach(entry => {
+          let index = parseInt(entry.month) - 1;
+          if (entry.continent == "Total") {
+            if (resData[entry.continent] === undefined) {
+              resData[entry.continent] = Array(12).fill(0);
+            }
+            resData.splice(index, 1, parseFloat(entry.quantity));
+          } else {
+            if (regData[entry.continent] === undefined) {
+              regData[entry.continent] = Array(12).fill(0);
+            }
+            regData[entry.continent].splice(index, 1, parseFloat(entry.quantity));
+          }
+        });
+        setRegionData(regData);
+        setChartData(resData);
+      });
+      setIsRegion(true);
+    } else {
+      setIsRegion(false);
+      axios.get(`${state.api}/thailand/${year}/${type}/${commodity}`)
+      .then(res => {
+        let resData = Array(12).fill(0);
+        res.data.forEach(entry => {
+            let index = parseInt(entry.month) - 1;
+            resData.splice(index, 1, resData[index] + parseFloat(entry.quantity));
+        });
+        setChartData(resData);
+      })
+    }
+    setLoading(false);
   }, [commodity, year])
 
   return (
@@ -130,7 +183,6 @@ function Thailand() {
             (
               <Grid container spacing={2}> 
               <Grid item xs={12} >
-               {/* For Jason to add */}
               </Grid>
               <Grid item xs={12} style={{ textAlign: "center" }}>
                 <Button variant="contained" endIcon={<DownloadIcon />} component="a" href="https://bit.ly/3j0ldt6">
@@ -141,13 +193,26 @@ function Thailand() {
             ) : (
               <Grid container spacing={2}>
               <Grid item xs={12}>
-                <LineChart
-                  key="1"
-                  name={`${type} of ${commodity} in ${year}`}
-                  lineName={type}
-                  data={chartData}
-                  color={'rgb(255, 99, 132)'}
-                />
+                {
+                  isRegion ?
+                  (
+                    <RegionChart
+                      key="1"
+                      name={`${type} of ${commodity} in ${year}`}
+                      lineName={type}
+                      lineData={chartData}
+                      regionData={regionData}
+                    />
+                  ) : (
+                    <LineChart
+                      key="1"
+                      name={`${type} of ${commodity} in ${year}`}
+                      lineName={type}
+                      data={chartData}
+                      color={'rgb(255, 99, 132)'}
+                    />
+                  )
+                }
               </Grid>
             </Grid>
             ) 

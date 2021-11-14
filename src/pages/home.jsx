@@ -72,7 +72,7 @@ function Home() {
               </Icon>
               }
               component="a"
-              href="/thailand/import"
+              href="/thailand_composite"
             >
               Thailand
             </Button>
