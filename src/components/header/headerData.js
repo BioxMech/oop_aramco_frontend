@@ -39,3 +39,14 @@ export const chinaHeader = [
     href: "/china/importExport",
   }
 ];
+
+export const downloadHeader = [
+  {
+    item: "China",
+    href: "/downloads/china",
+  },
+  {
+    item: "Thailand",
+    href: "/downloads/thailand",
+  }
+];

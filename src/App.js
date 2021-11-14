@@ -8,6 +8,8 @@ import Overview from './pages/overview';
 import ThailandComposite from './pages/thailandComposite';
 import ThailandMaterial from './pages/thailandMaterial';
 import Store from './components/store/Store';
+import DownloadChina from './pages/downloadsChina';
+import DownloadThailand from './pages/downloadsThailand';
 
 class App extends React.Component {
 
@@ -20,6 +22,8 @@ class App extends React.Component {
           <Route path="/thailand_composite" component={ThailandComposite} />
           <Route path="/thailand_material" component={ThailandMaterial} />
           <Route path="/thailand/:type" component={Thailand} />
+          <Route path="/downloads/china" component={DownloadChina} />
+          <Route path="/downloads/thailand" component={DownloadThailand} />
           <Route path="/china" component={China} />
           <Route path="/overview" component={Overview} />
           <Route path="/" component={Home} />
