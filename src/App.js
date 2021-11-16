@@ -17,15 +17,15 @@ class App extends React.Component {
     return (
       <Store>
         <Header />
-        <Switch>
-          <Route path="/thailand_summary" component={ThailandComposite} />
-          <Route path="/thailand_material" component={ThailandMaterial} />
-          <Route path="/thailand/:type" component={Thailand} />
-          <Route path="/downloads/china" component={DownloadChina} />
-          <Route path="/downloads/thailand" component={DownloadThailand} />
-          <Route path="/china" component={China} />
-          <Route path="/" component={Home} />
-        </Switch>
+          <Switch>
+            <Route path="/thailand_summary" component={ThailandComposite} />
+            <Route path="/thailand_material" component={ThailandMaterial} />
+            <Route path="/thailand/:type" component={Thailand} />
+            <Route path="/downloads/china" component={DownloadChina} />
+            <Route path="/downloads/thailand" component={DownloadThailand} />
+            <Route path="/china" component={China} />
+            <Route path="/" component={Home} />
+          </Switch>
       </Store>
     )
   }
