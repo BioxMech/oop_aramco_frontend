@@ -74,7 +74,7 @@ function ThailandMaterial(props) {
         :
         <Box my={3} mx={1.5}>
           <Typography variant="h4" style={{ textAlign: "center" }}>
-            THAILAND SUMMARY
+            THAILAND REFINERY
           </Typography>
 
           {/* ================ Filter ================ */}
