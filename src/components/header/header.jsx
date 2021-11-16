@@ -20,7 +20,7 @@ import Collapse from '@mui/material/Collapse';
 import './header.styles.scss';
 import ThailandFlag from '../../assets/images/thailandFlag.svg';
 import ChinaFlag from '../../assets/images/chinaFlag.svg';
-import { thailandHeader, chinaHeader } from './headerData';
+import { thailandHeader, chinaHeader, downloadHeader } from './headerData';
 
 
 export default function Header() {
@@ -35,6 +35,7 @@ export default function Header() {
 
   const [openTH, setOpenTH] = useState(true);
   const [openCH, setOpenCH] = useState(true);
+  const [openDW, setOpenDW] = useState(true);
 
   const handleClick = () => {
     setOpenTH(!openTH);
@@ -43,6 +44,10 @@ export default function Header() {
   const handleClickCH = () => {
     setOpenCH(!openCH);
   };
+
+  const handleClickDW = () => {
+    setOpenDW(!openDW);
+  }
 
   // For the icons
   const useStyles = makeStyles({
@@ -117,6 +122,32 @@ export default function Header() {
             <List component="div" disablePadding>
               {
                 chinaHeader.map(({ item, href }) => (
+                    <List component="div" disablePadding className={"" + ( pathname === href ? "current" : "") }>
+                      <ListItem button sx={{ pl: 4 }} component="a" href={href} >
+                        <ListItemText primary={item} />
+                      </ListItem>
+                    </List>
+                ))
+              }
+            </List>
+          </Collapse>
+
+          {/* Download */}
+          <ListItem button onClick={handleClickDW} >
+            <ListItemIcon >
+              <Icon classes={{root: useStyles.iconRoot}}>
+                <img className={useStyles.imageIcon} src={ThailandFlag} alt="TH" />
+              </Icon>
+            </ListItemIcon>
+            <ListItemText primary={`Download`} />
+            {openDW ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+
+          {/* Download List */}
+          <Collapse in={openDW} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding >
+              {
+                downloadHeader.map(({ item, href }) => (
                     <List component="div" disablePadding className={"" + ( pathname === href ? "current" : "") }>
                       <ListItem button sx={{ pl: 4 }} component="a" href={href} >
                         <ListItemText primary={item} />
