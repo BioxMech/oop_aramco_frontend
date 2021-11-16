@@ -25,7 +25,7 @@ export const thailandHeader = [
   },
   {
     item: "Summary",
-    href: "/thailand_composite"
+    href: "/thailand_summary"
   }
 ];
 
@@ -37,5 +37,16 @@ export const chinaHeader = [
   {
     item: "Import / Export",
     href: "/china/importExport",
+  }
+];
+
+export const downloadHeader = [
+  {
+    item: "China",
+    href: "/downloads/china",
+  },
+  {
+    item: "Thailand",
+    href: "/downloads/thailand",
   }
 ];

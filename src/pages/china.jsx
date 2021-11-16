@@ -25,7 +25,7 @@ function China(props) {
   //   var item = pathname.split("/")[2];
   // }
 
-  const [state, dispatch] = useContext(Context);
+  const [state] = useContext(Context);
   const [year, setYear] = useState("2021");
   const [commodity, setCommodity] = useState("All");
   const [commodityList, setCommodityList] = useState(["All"]);
@@ -129,7 +129,7 @@ function China(props) {
         <Loading />
         :
         <Box my={3} mx={1.5}>
-          <Typography variant="h5" style={{ textAlign: "center" }}>
+          <Typography variant="h4" style={{ textAlign: "center" }}>
           CHINA: IMPORT / EXPORT
             {/* { country.toUpperCase() }{ item ? ` : ${item.toUpperCase()}` : ''} */}
           </Typography>

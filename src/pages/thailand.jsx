@@ -21,7 +21,7 @@ import Loading from '../components/loading/loading.component';
 function Thailand() {
 
   const [loading, setLoading] = useState(true);
-  const [state, dispatch] = useContext(Context);
+  const [state] = useContext(Context);
   const [year, setYear] = useState("2021");
   const [commodity, setCommodity] = useState("All");
   const [commodityList, setCommodityList] = useState(["All"]);
@@ -62,14 +62,14 @@ function Thailand() {
 
   useEffect(() => {
     setLoading(true);
-    if (type == 'production' && (commodity == 'Crude Oil' || commodity == 'Condensate')) {
+    if (type === 'production' && (commodity === 'Crude Oil' || commodity === 'Condensate')) {
       axios.get(`${state.api}/thailand/${year}/${type}/${commodity}`)
       .then(res => {
         let resData = Array(12).fill(0);
         let regData = {};
         res.data.forEach(entry => {
           let index = parseInt(entry.month) - 1;
-          if (entry.region == "Total") {
+          if (entry.region === "Total") {
             if (resData[entry.region] === undefined) {
               resData[entry.region] = Array(12).fill(0);
             }
@@ -85,15 +85,15 @@ function Thailand() {
         setChartData(resData);
       });
       setIsRegion(true);
-    } else if (type == 'import' && commodity == 'Crude Oil') {
+    } else if (type === 'import' && commodity === 'Crude Oil') {
       axios.get(`${state.api}/thailand/${year}/${type}/${commodity}`)
       .then(res => {
-        console.log(res)
+        // console.log(res)
         let resData = Array(12).fill(0);
         let regData = {};
         res.data.forEach(entry => {
           let index = parseInt(entry.month) - 1;
-          if (entry.continent == "Total") {
+          if (entry.continent === "Total") {
             if (resData[entry.continent] === undefined) {
               resData[entry.continent] = Array(12).fill(0);
             }
@@ -127,11 +127,11 @@ function Thailand() {
   return (
     <>
       {
-        loading ?
+        loading || commodity === "All" ?
         <Loading />
         :
         <Box my={3} mx={1.5}>
-          <Typography variant="h5" style={{ textAlign: "center" }}>
+          <Typography variant="h4" style={{ textAlign: "center" }}>
           THAILAND: { type.toUpperCase() }
           </Typography>
 

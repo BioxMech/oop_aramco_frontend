@@ -20,8 +20,8 @@ import Collapse from '@mui/material/Collapse';
 import './header.styles.scss';
 import ThailandFlag from '../../assets/images/thailandFlag.svg';
 import ChinaFlag from '../../assets/images/chinaFlag.svg';
-import { thailandHeader, chinaHeader } from './headerData';
-
+import { thailandHeader, chinaHeader, downloadHeader } from './headerData';
+import DownloadIcon from '@mui/icons-material/Download';
 
 export default function Header() {
 
@@ -35,6 +35,7 @@ export default function Header() {
 
   const [openTH, setOpenTH] = useState(true);
   const [openCH, setOpenCH] = useState(true);
+  const [openDW, setOpenDW] = useState(true);
 
   const handleClick = () => {
     setOpenTH(!openTH);
@@ -43,6 +44,10 @@ export default function Header() {
   const handleClickCH = () => {
     setOpenCH(!openCH);
   };
+
+  const handleClickDW = () => {
+    setOpenDW(!openDW);
+  }
 
   // For the icons
   const useStyles = makeStyles({
@@ -126,13 +131,39 @@ export default function Header() {
               }
             </List>
           </Collapse>
+
+          {/* Download */}
+          <ListItem button onClick={handleClickDW} >
+            <ListItemIcon >
+              <Icon classes={{root: useStyles.iconRoot}}>
+                <DownloadIcon color="success" />
+              </Icon>
+            </ListItemIcon>
+            <ListItemText primary={`Download`} />
+            {openDW ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+
+          {/* Download List */}
+          <Collapse in={openDW} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding >
+              {
+                downloadHeader.map(({ item, href }) => (
+                    <List component="div" disablePadding className={"" + ( pathname === href ? "current" : "") }>
+                      <ListItem button sx={{ pl: 4 }} component="a" href={href} >
+                        <ListItemText primary={item} />
+                      </ListItem>
+                    </List>
+                ))
+              }
+            </List>
+          </Collapse>
       </List>
     </Box>
   );
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box>
         <AppBar position="static" color="transparent" enableColorOnDark="true">
           <Toolbar>
             <IconButton
@@ -152,10 +183,11 @@ export default function Header() {
             >
               { list('left') }
             </SwipeableDrawer>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Aramco
+            <Typography variant="h6" component="a" href="/" sx={{ mx: 'auto', my: 'auto' }}>
+              <Box my={1}>
+                <img style={{ height: "85%", textAlign: 'center' }} src="https://www.aramco.com/images/affiliateLogo.png" alt="Aramco"  />
+              </Box>
             </Typography>
-            
           </Toolbar>
         </AppBar>
       </Box>
