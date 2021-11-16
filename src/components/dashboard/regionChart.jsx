@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { Bar } from 'react-chartjs-2';
-// import seedrandom from 'seedrandom';
 
 function RegionChart(props) {
   const [chartData, setChartData] = useState(null)

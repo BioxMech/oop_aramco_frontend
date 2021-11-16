@@ -21,7 +21,7 @@ import './header.styles.scss';
 import ThailandFlag from '../../assets/images/thailandFlag.svg';
 import ChinaFlag from '../../assets/images/chinaFlag.svg';
 import { thailandHeader, chinaHeader, downloadHeader } from './headerData';
-
+import DownloadIcon from '@mui/icons-material/Download';
 
 export default function Header() {
 
@@ -136,7 +136,7 @@ export default function Header() {
           <ListItem button onClick={handleClickDW} >
             <ListItemIcon >
               <Icon classes={{root: useStyles.iconRoot}}>
-                <img className={useStyles.imageIcon} src={ThailandFlag} alt="TH" />
+                <DownloadIcon color="success" />
               </Icon>
             </ListItemIcon>
             <ListItemText primary={`Download`} />
@@ -163,7 +163,7 @@ export default function Header() {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box>
         <AppBar position="static" color="transparent" enableColorOnDark="true">
           <Toolbar>
             <IconButton
@@ -183,10 +183,11 @@ export default function Header() {
             >
               { list('left') }
             </SwipeableDrawer>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Aramco
+            <Typography variant="h6" component="a" href="/" sx={{ mx: 'auto', my: 'auto' }}>
+              <Box my={1}>
+                <img style={{ height: "85%", textAlign: 'center' }} src="https://www.aramco.com/images/affiliateLogo.png" alt="Aramco"  />
+              </Box>
             </Typography>
-            
           </Toolbar>
         </AppBar>
       </Box>

@@ -10,7 +10,7 @@ import Typewriter from 'typewriter-effect';
 
 import ThailandFlag from '../assets/images/thailandFlag.svg';
 import ChinaFlag from '../assets/images/chinaFlag.svg';
-import Overview from '../assets/images/overview.png';
+// import Overview from '../assets/images/overview.png';
 
 function Home() {
 
@@ -29,27 +29,29 @@ function Home() {
       <Stack sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
         <Box mb={3}>
           <Typography variant="h5" style={{ display: 'flex' }}>
-            Choose Your Country: &nbsp;
-            <Typewriter
-              onInit={(typewriter) => {
-                typewriter.typeString("<strong style='color: red'>China</strong>")
-                  // .callFunction(() => {
-                  //   console.log('String typed out!');
-                  // })
-                  .pauseFor(2500)
-                  .deleteChars(7)
-                  .typeString("<strong style='color: blue'>Thailand</strong>")
-                  .pauseFor(2500)
-                  // .callFunction(() => {
-                  //   console.log('All strings were deleted');
-                  // })
-                  .start();
-              }}
-              options={{
-                autoStart: true,
-                loop: true,
-              }}
-            />
+            Country: 
+            <Box ml={1}>
+              <Typewriter
+                onInit={(typewriter) => {
+                  typewriter.typeString("<strong style='color: red'>China</strong>")
+                    // .callFunction(() => {
+                    //   console.log('String typed out!');
+                    // })
+                    .pauseFor(2500)
+                    .deleteChars(7)
+                    .typeString("<strong style='color: blue'>Thailand</strong>")
+                    .pauseFor(2500)
+                    // .callFunction(() => {
+                    //   console.log('All strings were deleted');
+                    // })
+                    .start();
+                }}
+                options={{
+                  autoStart: true,
+                  loop: true,
+                }}
+              />
+            </Box>
           </Typography>
           
         </Box>
@@ -72,16 +74,10 @@ function Home() {
               </Icon>
               }
               component="a"
-              href="/thailand_composite"
+              href="/thailand_summary"
             >
               Thailand
             </Button>
-            <Button color="inherit" variant="contained" startIcon={ 
-              <img style={{ width: "20px"}} src={Overview} alt="Overview" />
-              }
-              component="a"
-              href="/overview"
-            >Overview</Button>
           </Stack>
         </Box>
         

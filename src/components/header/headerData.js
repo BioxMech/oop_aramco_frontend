@@ -25,7 +25,7 @@ export const thailandHeader = [
   },
   {
     item: "Summary",
-    href: "/thailand_composite"
+    href: "/thailand_summary"
   }
 ];
 

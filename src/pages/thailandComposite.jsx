@@ -3,8 +3,6 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import DownloadIcon from '@mui/icons-material/Download';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -18,7 +16,7 @@ import Loading from '../components/loading/loading.component';
 
 function ThailandComposite(props) {
 
-  const [state, dispatch] = useContext(Context);
+  const [state] = useContext(Context);
   const [year, setYear] = useState("2021");
   const [commodity, setCommodity] = useState("");
   const [commodityList, setCommodityList] = useState([]);
@@ -108,11 +106,11 @@ function ThailandComposite(props) {
   return (
     <>
       {
-        loading ?
+        loading || commodity === "All" ?
         <Loading />
         :
         <Box my={3} mx={1.5}>
-          <Typography variant="h5" style={{ textAlign: "center" }}>
+          <Typography variant="h4" style={{ textAlign: "center" }}>
           THAILAND SUMMARY
           </Typography>
 

@@ -40,7 +40,7 @@ function Dashboard(props) {
 
   return (
     <Box my={3} mx={1.5}>
-      <Typography variant="h5" style={{ textAlign: "center" }}>
+      <Typography variant="h4" style={{ textAlign: "center" }}>
         { country.toUpperCase() }{ item ? ` : ${item.toUpperCase()}` : ''}
       </Typography>
 
