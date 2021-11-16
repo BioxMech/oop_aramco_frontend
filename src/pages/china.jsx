@@ -188,11 +188,6 @@ function China(props) {
                 <br />
                 <Chart name="Oil Export" type="Pie" data={commodityList.slice(1)} year={year} dataValues={exportPieValues} /> 
               </Grid>
-              <Grid item xs={12} style={{ textAlign: "center" }}>
-                <Button variant="contained" endIcon={<DownloadIcon />} component="a" href="https://bit.ly/3j0ldt6">
-                  Download .csv file
-                </Button>
-              </Grid>
             </Grid>
             ) : (
               <Grid container spacing={2}>
