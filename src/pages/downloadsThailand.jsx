@@ -75,7 +75,7 @@ function DownloadsThailand(props) {
             <Container maxWidth="md">
                 <Box  my={3} mx={1.5} style={{ textAlign: "center" }}>
                     <Typography variant="h4" >
-                            Thailand Downloads
+                            <strong style={{ color: 'blue' }}>Thailand</strong> Downloads
                     </Typography>
                     <Button variant="contained" sx={{ ml: 1, mt : 2 }} onClick={saveAllExcel}>
                         Save Latest Excel
