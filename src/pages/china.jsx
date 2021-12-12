@@ -119,7 +119,6 @@ function China(props) {
         setExportPieValues(exportArr)
         setLoading(false)
       })
-    
   }, [commodityList, year])
 
   return (

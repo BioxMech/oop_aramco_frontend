@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 
 const initialState = {
-    api: "http://localhost:8080/api"
+    api: "https://aramco-backend.herokuapp.com/api"
 }
 
 const Reducer = (state, action) => {
