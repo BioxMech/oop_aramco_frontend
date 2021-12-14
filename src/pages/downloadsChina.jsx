@@ -87,10 +87,10 @@ function DownloadChina(props) {
                             <TableContainer component={Paper} sx={{ width: "80%", margin: "auto", mt: 5,textAlign: "center" }}>
                                 <Table aria-label="simple table">
                                     <TableHead>
-                                        <TableRow>
-                                            <TableCell>
+                                        <TableRow style={{ backgroundColor: "#c91c35" }}>
+                                            <TableCell colSpan={2}>
                                                 <Typography variant="subtitle1">
-                                                    Commodity
+                                                    <strong style={{ color: 'white' }}>Commodity</strong>
                                                 </Typography>
                                             </TableCell>
                                         </TableRow>
@@ -100,6 +100,7 @@ function DownloadChina(props) {
                                             <TableRow
                                             key={idx}
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                            style ={ idx % 2? { background : "#ffe3e7" }:{ background : "white" }}
                                             >
                                                 <TableCell component="th" scope="row">
                                                     {commodities[idx]}

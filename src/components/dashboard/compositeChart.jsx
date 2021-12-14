@@ -31,7 +31,7 @@ function CompositeChart(props) {
         borderColor: 'white',
         borderWidth: 2
       }
-    ],
+    ]
   };
 
   const options = {
@@ -40,13 +40,24 @@ function CompositeChart(props) {
       title: {
         display: true,
         text: props.name,
-      },
+      }
+    },
+    scales: {
+      yAxes: {
+        title: {
+            display: true,
+            text: "Kilobarrel",
+            font: {
+                size: 13
+            }
+        }
+      }
     }
   };
 
   return (
     <Box sx={{ minWidth: "350px", width: "72vw", height: "100%", margin: "auto" }}>
-      <Bar data ={dataTemp} options={options} />
+      <Bar data={dataTemp} options={options} />
     </Box>
   )
 }

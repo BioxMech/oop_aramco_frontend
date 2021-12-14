@@ -62,7 +62,6 @@ function DownloadsThailand(props) {
     }, [saveNew])
 
     useEffect(() => {
-        // console.log(APILinks);
         setLoading(false);
     }, [APILinks])
   
@@ -73,7 +72,7 @@ function DownloadsThailand(props) {
             <Loading />
             :
             <Container maxWidth="md">
-                <Box  my={3} mx={1.5} style={{ textAlign: "center" }}>
+                <Box  my={3} style={{ textAlign: "center" }}>
                     <Typography variant="h4" >
                             <strong style={{ color: 'blue' }}>Thailand</strong> Downloads
                     </Typography>
@@ -83,16 +82,21 @@ function DownloadsThailand(props) {
                     <TableContainer component={Paper} sx={{ width: "80%", margin: "auto", mt: 5,textAlign: "center" }}>
                         <Table aria-label="simple table">
                             <TableHead>
-                                <TableRow>
-                                    <TableCell>Commodity</TableCell>
+                                <TableRow style={{ backgroundColor: "#221cc9" }}>
+                                    <TableCell colSpan={2}>
+                                        <Typography variant="subtitle1">
+                                            <strong style={{ color: "white" }}>Commodity</strong>
+                                        </Typography>
+                                    </TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                             {
-                            Object.entries(APILinks).map(([key, value]) => (
+                            Object.entries(APILinks).map(([key, value], idx) => (
                                 <TableRow
                                 key={key}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                style ={ idx % 2? { background : "#e4e3ff" }:{ background : "white" }}
                                 >
                                     <TableCell component="th" scope="row">
                                         {key}
