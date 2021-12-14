@@ -50,7 +50,14 @@ function RegionChart(props) {
         stacked: true,
       },
       y: {
-        stacked: true
+        stacked: true,
+        title: {
+          display: true,
+          text: "Kilobarrel",
+          font: {
+              size: 13
+          }
+        }
       }
     }
   };
@@ -59,7 +66,7 @@ function RegionChart(props) {
     <>
     { isLoading ? (<></>) : (
       <Box sx={{ minWidth: "350px", width: "72vw", height: "100%", margin: "auto" }}>
-        <Bar data ={chartData} options={options} />
+        <Bar data={chartData} options={options} />
       </Box>
     )
     }

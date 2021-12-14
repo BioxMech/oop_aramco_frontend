@@ -1,8 +1,8 @@
 import React, { createContext, useReducer } from 'react';
 
 const initialState = {
-    api: "http://ec2-3-84-143-135.compute-1.amazonaws.com:8080/api"
-    // api: "http://localhost:8080/api"
+    // api: "http://ec2-54-227-8-215.compute-1.amazonaws.com/:8080/api"
+    api: "http://localhost:8080/api"
 }
 
 const Reducer = (state, action) => {

@@ -27,6 +27,17 @@ function LineChart(props) {
         text: props.name,
       },
     },
+    scales: {
+      yAxes: {
+        title: {
+            display: true,
+            text: "Kilobarrel",
+            font: {
+                size: 13
+            }
+        }
+      }
+    }
   };
 
   return (
